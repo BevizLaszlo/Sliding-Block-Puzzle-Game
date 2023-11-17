@@ -17,22 +17,26 @@ namespace NumberMatrixGame
         enum Direction { Top, Right, Bottom, Left }
         Direction currentTurn;
         Random rnd = new Random();
-        int[,] numMatrix = new int[5, 5];
+        int[,] numMatrix = new int[6, 6];
 
         private void InitializeNumMatrix()
         {
-            List<int> nums = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8 };
-            for (int i = 1; i <= 3; i++)
-                for (int j = 1; j <= 3; j++)
-                {
-                    if (i != 3 || j != 3)
+            do
+            {
+                List<int> numsUsed = new List<int>();
+                for (int i = 1; i < numMatrix.GetLength(0) - 1; i++)
+                    for (int j = 1; j < numMatrix.GetLength(1) - 1; j++)
                     {
-                        int index = rnd.Next(nums.Count);
-                        numMatrix[i, j] = nums[index];
-                        nums.RemoveAt(index);
+                        int num;
+                        do
+                        {
+                            num = rnd.Next((numMatrix.GetLength(0) - 2) * (numMatrix.GetLength(1) - 2));
+                        } while (numsUsed.Contains(num));
+
+                        numMatrix[i, j] = num;
+                        numsUsed.Add(num);
                     }
-                }
-            numMatrix[3, 3] = 0;
+            } while (!IsPuzzleSolveable());
         }
 
         private void ButtonsRender()
@@ -139,7 +143,7 @@ namespace NumberMatrixGame
                 currentTurn = Direction.Top;
                 return true;
             }
-            if (numMatrix[x + 1, y] == 0 && x + 1 < 4)
+            if (numMatrix[x + 1, y] == 0 && x + 1 < numMatrix.GetLength(0) - 1)
             {
                 currentTurn = Direction.Bottom;
                 return true;
@@ -149,7 +153,7 @@ namespace NumberMatrixGame
                 currentTurn = Direction.Left;
                 return true;
             }
-            if (numMatrix[x, y + 1] == 0 && y + 1 < 4)
+            if (numMatrix[x, y + 1] == 0 && y + 1 < numMatrix.GetLength(1) - 1)
             {
                 currentTurn = Direction.Right;
                 return true;
@@ -164,11 +168,27 @@ namespace NumberMatrixGame
             for (int i = 1; i < numMatrix.GetLength(0) - 1; i++)
                 for (int j = 1; j < numMatrix.GetLength(1) - 1; j++)
                 {
-                    if ((i != 3 || j != 3) && numMatrix[i, j] != checker) return false;
+                    if ((i != numMatrix.GetLength(0) - 2 || j != numMatrix.GetLength(1) - 2) && numMatrix[i, j] != checker) return false;
                     checker++;
                 }
 
             return true;
+        }
+
+        private bool IsPuzzleSolveable()
+        {
+            int inversion = 0;
+            int[] numArray = new int[numMatrix.GetLength(0) * numMatrix.GetLength(1)];
+            int current = 0;
+
+            foreach (int value in numMatrix)
+                numArray[current++] = value;
+
+            for (int i = 0; i < numArray.Length - 1; i++)
+                for (int j = i + 1; j < numArray.Length; j++)
+                    if (numArray[i] > numArray[j]) inversion++;
+
+            return inversion % 2 == 0 ?  true :  false;
         }
     }
 }

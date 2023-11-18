@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NumberMatrixGame
@@ -17,7 +11,7 @@ namespace NumberMatrixGame
         enum Direction { Top, Right, Bottom, Left }
         Direction currentTurn;
         Random rnd = new Random();
-        int[,] numMatrix = new int[6, 6];
+        int[,] numMatrix = new int[5,5];
 
         private void InitializeNumMatrix()
         {
@@ -107,7 +101,11 @@ namespace NumberMatrixGame
                 numMatrix[newPlace[0], newPlace[1]] = temp;
 
                 if (CheckForWin())
+                {
                     winLabel.Visible = true;
+                    foreach (Button btn in GamePanel.Controls)
+                        btn.Click -= Btn_Click;
+                }
             }
         }
 
@@ -178,17 +176,26 @@ namespace NumberMatrixGame
         private bool IsPuzzleSolveable()
         {
             int inversion = 0;
-            int[] numArray = new int[numMatrix.GetLength(0) * numMatrix.GetLength(1)];
+            int[] numArray = new int[(numMatrix.GetLength(0) - 2) * (numMatrix.GetLength(1) - 2) - 1];
             int current = 0;
 
-            foreach (int value in numMatrix)
-                numArray[current++] = value;
+            for (int i = 1; i < numMatrix.GetLength(0) - 1; i++)
+                for (int j = 1; j < numMatrix.GetLength(1) - 1; j++)
+                    if (numMatrix[i, j] != 0) numArray[current++] = numMatrix[i, j];
 
             for (int i = 0; i < numArray.Length - 1; i++)
                 for (int j = i + 1; j < numArray.Length; j++)
                     if (numArray[i] > numArray[j]) inversion++;
 
-            return inversion % 2 == 0 ?  true :  false;
+            return inversion % 2 == 0;
+        }
+
+        private void reshuffleBtn_Click(object sender, EventArgs e)
+        {
+            GamePanel.Controls.Clear();
+            winLabel.Visible = false;
+            InitializeNumMatrix();
+            ButtonsRender();
         }
     }
 }

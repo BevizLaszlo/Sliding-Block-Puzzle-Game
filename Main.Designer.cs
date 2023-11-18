@@ -32,6 +32,7 @@
             this.winLabel = new System.Windows.Forms.Label();
             this.reshuffleBtn = new System.Windows.Forms.Button();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.turnsLabel = new System.Windows.Forms.Label();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,7 +40,7 @@
             // 
             this.GamePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(72)))), ((int)(((byte)(72)))));
             this.GamePanel.Font = new System.Drawing.Font("Arial", 20F, System.Drawing.FontStyle.Bold);
-            this.GamePanel.Location = new System.Drawing.Point(42, 84);
+            this.GamePanel.Location = new System.Drawing.Point(40, 52);
             this.GamePanel.Name = "GamePanel";
             this.GamePanel.Size = new System.Drawing.Size(300, 300);
             this.GamePanel.TabIndex = 0;
@@ -49,7 +50,7 @@
             this.winLabel.AutoSize = true;
             this.winLabel.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Bold);
             this.winLabel.ForeColor = System.Drawing.Color.DarkGreen;
-            this.winLabel.Location = new System.Drawing.Point(38, 40);
+            this.winLabel.Location = new System.Drawing.Point(36, 15);
             this.winLabel.Name = "winLabel";
             this.winLabel.Size = new System.Drawing.Size(117, 24);
             this.winLabel.TabIndex = 1;
@@ -59,7 +60,7 @@
             // reshuffleBtn
             // 
             this.reshuffleBtn.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold);
-            this.reshuffleBtn.Location = new System.Drawing.Point(217, 32);
+            this.reshuffleBtn.Location = new System.Drawing.Point(128, 376);
             this.reshuffleBtn.Name = "reshuffleBtn";
             this.reshuffleBtn.Size = new System.Drawing.Size(125, 46);
             this.reshuffleBtn.TabIndex = 2;
@@ -70,13 +71,25 @@
             // mainPanel
             // 
             this.mainPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.mainPanel.Controls.Add(this.turnsLabel);
             this.mainPanel.Controls.Add(this.reshuffleBtn);
             this.mainPanel.Controls.Add(this.winLabel);
             this.mainPanel.Controls.Add(this.GamePanel);
-            this.mainPanel.Location = new System.Drawing.Point(217, 33);
+            this.mainPanel.Location = new System.Drawing.Point(210, 24);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(381, 416);
+            this.mainPanel.Size = new System.Drawing.Size(381, 444);
             this.mainPanel.TabIndex = 3;
+            // 
+            // turnsLabel
+            // 
+            this.turnsLabel.AutoSize = true;
+            this.turnsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.turnsLabel.ForeColor = System.Drawing.Color.White;
+            this.turnsLabel.Location = new System.Drawing.Point(274, 18);
+            this.turnsLabel.Name = "turnsLabel";
+            this.turnsLabel.Size = new System.Drawing.Size(66, 20);
+            this.turnsLabel.TabIndex = 3;
+            this.turnsLabel.Text = "Turns: 0";
             // 
             // Main
             // 
@@ -99,6 +112,7 @@
         private System.Windows.Forms.Label winLabel;
         private System.Windows.Forms.Button reshuffleBtn;
         private System.Windows.Forms.Panel mainPanel;
+        private System.Windows.Forms.Label turnsLabel;
     }
 }
 

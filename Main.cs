@@ -12,6 +12,7 @@ namespace NumberMatrixGame
         Direction currentTurn;
         Random rnd = new Random();
         int[,] numMatrix = new int[5,5];
+        int turns = 0;
 
         private void InitializeNumMatrix()
         {
@@ -71,6 +72,8 @@ namespace NumberMatrixGame
 
             if (IsThereEmptySquare(x, y))
             {
+                turnsLabel.Text = $"Turns: {++turns}";
+
                 AnimateButton(thisBtn, currentTurn);
                 int[] newPlace = new int[2];
 
@@ -192,6 +195,8 @@ namespace NumberMatrixGame
 
         private void reshuffleBtn_Click(object sender, EventArgs e)
         {
+            turns = 0;
+            turnsLabel.Text = $"Turns: {turns}";
             GamePanel.Controls.Clear();
             winLabel.Visible = false;
             InitializeNumMatrix();
